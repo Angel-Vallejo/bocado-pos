@@ -30,8 +30,8 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
         $folioGenerado = PedidoModel::registrarPedido($usuarioID, $mesaOLlevar, $formaPago, $total, $carrito);
 
-        if ($folioGenerado !== false) {
-            header("Location: /view/panel_admin.php?msg=pedido_creado&folio=" . $folioGenerado);
+	if ($folioGenerado !== false) {
+            header("Location: /view/ticket.php?folio=" . $folioGenerado);
             exit();
         } else {
             header("Location: /view/panel_admin.php?error=error_bd");

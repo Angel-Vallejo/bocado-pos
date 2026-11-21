@@ -304,6 +304,36 @@ class PedidoModel {
 
         return array_values($comandas);
     }
+// 9. Obtener un pedido específico con su detalle para generar los tickets (Cliente y Supervisor)
+    public static function obtenerPedidoPorFolio($pedidoID) {
+        global $conn;
+        $sql = "SELECT p.pedidoID, p.mesa_o_llevar, p.total, p.forma_pago, p.estado, p.fecha_creacion,
+                       u.nombre AS cajero
+                FROM Pedidos p
+                INNER JOIN Usuarios u ON p.usuarioID = u.usuarioID
+                WHERE p.pedidoID = ?";
+        $stmt = sqlsrv_query($conn, $sql, array($pedidoID));
+        if ($stmt === false || !($pedido = sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC))) {
+            return null;
+        }
+
+        $sqlDet = "SELECT dp.cantidad, dp.precio_unitario, dp.personalizacion, dp.subtotal,
+                          pr.nombre AS producto
+                   FROM Detalle_Pedido dp
+                   INNER JOIN Productos pr ON dp.productoID = pr.productoID
+                   WHERE dp.pedidoID = ?
+                   ORDER BY dp.detalleID ASC";
+        $stmtDet = sqlsrv_query($conn, $sqlDet, array($pedidoID));
+
+        $pedido['items'] = [];
+        if ($stmtDet !== false) {
+            while ($row = sqlsrv_fetch_array($stmtDet, SQLSRV_FETCH_ASSOC)) {
+                $pedido['items'][] = $row;
+            }
+        }
+
+        return $pedido;
+    }
 }
 
 ?>
