@@ -175,9 +175,17 @@ $extrasActivos = array_filter(ProductoModel::obtenerTodosExtras(), fn($e) => (in
                         <span class="h3 font-weight-bold text-success" id="cobroTotalDisplay">$0.00</span>
                     </div>
                     <div class="form-group">
-                        <label class="small font-weight-bold text-muted">Mesa o Para Llevar</label>
-                        <input type="text" name="mesa_o_llevar" class="form-control" value="Mostrador" required>
-                    </div>
+ 		    <label class="small font-weight-bold text-muted">Destino de la Orden</label>
+   		    <select name="mesa_o_llevar" class="form-control" required>
+ 		       <option value="Mostrador">Mostrador</option>
+   		       <option value="Para llevar">Para llevar</option>
+    		       <option value="Mesa 1">Mesa 1</option>
+    		       <option value="Mesa 2">Mesa 2</option>
+		       <option value="Mesa 3">Mesa 3</option>
+        	       <option value="Mesa 4">Mesa 4</option>
+       		       <option value="Mesa 5">Mesa 5</option>
+		     </select>
+		    </div>
                     <div class="form-group">
                         <label class="small font-weight-bold text-muted">Forma de Pago</label>
                         <select name="forma_pago" id="selectFormaPago" class="form-control" onchange="toggleCalculadoraCambio()">
