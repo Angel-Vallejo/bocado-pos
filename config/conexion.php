@@ -5,7 +5,8 @@ $serverName = "localhost";
 $connectionOptions = array(
     "Database" => "BD_Hamburgueseria_Bocado",
     "Uid" => "",      //Autenticación de Windows
-    "PWD" => ""       
+    "PWD" => "",
+    "CharacterSet" => "UTF-8"
 );
 
 // Establecer la conexión con SQL Server usando la extensión sqlsrv
